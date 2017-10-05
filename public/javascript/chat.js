@@ -1,7 +1,7 @@
 $(function () {
   const socket = io();
 
-  const messageInput = $('.messageForm .message');
+  const messageInput = $('.messageForm .messageInput');
 
   $('.messageForm').submit(() => {
     const message = messageInput.val();

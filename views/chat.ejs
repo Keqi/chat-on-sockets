@@ -2,6 +2,7 @@
   <head>
     <title>Chat</title>
     <link type="text/css" rel="stylesheet" href="../public/stylesheets/chat.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
@@ -9,16 +10,23 @@
   </head>
   <body>
     <div class="container">
-      <div class="sidebar">
-        Hello
-      </div>
-      <div class="chat">
-        <ul class="messages">
-        </ul>
-        <form class="messageForm" action="">
-          <input class="message" autocomplete="off" />
-          <button>Send</button>
-        </form>
+      <div class="row">
+        <div class="col-3">
+          Sidebar
+        </div>
+
+        <div class="col-9">
+          <div class="chat">
+            <ul class="messages list-unstyled">
+            </ul>
+            <form class="messageForm" action="">
+              <div class="form-group">
+                <input type="text" class="form-control messageInput">
+              </div>
+              <button type="submit" class="btn btn-primary float-right">Send</button>
+            </form>
+          </div>
+        </div>
       </div>
       <div class="clear"></div>
     </div>
