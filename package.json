@@ -1,0 +1,14 @@
+{
+  "name": "chat-on-sockets",
+  "version": "1.0.0",
+  "description": "Live chat on socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Maciej Nowak",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.1"
+  }
+}
