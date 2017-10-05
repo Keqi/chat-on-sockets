@@ -1,5 +1,5 @@
-var app = require('express')();
-var http = require('http').Server(app);
+const app = require('express')();
+const http = require('http').Server(app);
 
 app.set('view engine', 'pug');
 
