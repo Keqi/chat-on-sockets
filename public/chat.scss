@@ -1,0 +1,17 @@
+.sidebar {
+  width: 300px;
+  float: left;
+}
+
+.chat {
+  margin-left: 300px;
+  width: 800px;
+
+  .title {
+    font-size: 30px;
+  }
+}
+
+.clear {
+  clear: both;
+}

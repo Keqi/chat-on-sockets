@@ -5,15 +5,15 @@ const http = require('http').Server(app);
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 
 app.use(sassMiddleware({
     /* Options */
-    src: __dirname,
+    src: path.join(__dirname, 'public'),
     dest: path.join(__dirname, 'public'),
     debug: true,
     outputStyle: 'compressed',
-    prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+    prefix: '/public'
 }));
 
 app.use('/public', express.static(path.join(__dirname, 'public')));

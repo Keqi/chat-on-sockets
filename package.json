@@ -10,9 +10,9 @@
   "author": "Maciej Nowak",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.5.7",
     "express": "^4.16.1",
     "node-sass-middleware": "^0.11.0",
-    "pug": "^2.0.0-rc.4",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
