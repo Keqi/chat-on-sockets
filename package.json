@@ -4,11 +4,14 @@
   "description": "Live chat on socket.io",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node index.js"
   },
   "author": "Maciej Nowak",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.1"
+    "express": "^4.16.1",
+    "pug": "^2.0.0-rc.4",
+    "socket.io": "^2.0.3"
   }
 }
