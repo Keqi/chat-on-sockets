@@ -1,7 +1,11 @@
 <html>
   <head>
     <title>Chat</title>
-    <link type="text/css" rel="stylesheet" href="../public/chat.css" />
+    <link type="text/css" rel="stylesheet" href="../public/stylesheets/chat.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../public/javascript/chat.js"></script>
   </head>
   <body>
     <div class="container">
@@ -9,7 +13,14 @@
         Hello
       </div>
       <div class="chat">
-        <p class="title">Chat</p>
+        <ul>
+          <li>Message 1</li>
+          <li>Message 2</li>
+        </ul>
+        <form class="messageForm" action="">
+          <input class="message" autocomplete="off" />
+          <button>Send</button>
+        </form>
       </div>
       <div class="clear"></div>
     </div>
