@@ -1,6 +1,6 @@
-const socket = io();
-
 $(function () {
+  const socket = io();
+
   const messageInput = $('.messageForm .message');
 
   $('.messageForm').submit(() => {
@@ -9,4 +9,8 @@ $(function () {
     messageInput.val('');
     return false;
   })
+
+  socket.on('chat message', ((msg) => {
+    $('ul.messages').append($('<li>').text(msg));
+  }));
 })
