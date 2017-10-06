@@ -1,5 +1,12 @@
 .chat {
-  border: 1px solid #cecece;
   height: 100%;
-  padding: 10px;
+
+  ul.messages {
+    border: 1px solid #cecece;
+    padding: 10px;
+    min-height: 82%;
+  }
+}
+
+.messageForm {
 }
