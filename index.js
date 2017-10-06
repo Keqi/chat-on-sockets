@@ -9,7 +9,6 @@ const sassMiddleware = require('node-sass-middleware');
 app.set('view engine', 'ejs');
 
 app.use(sassMiddleware({
-    /* Options */
     src: path.join(__dirname, 'public'),
     dest: path.join(__dirname, 'public'),
     outputStyle: 'compressed',

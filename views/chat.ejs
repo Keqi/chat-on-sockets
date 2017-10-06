@@ -9,26 +9,33 @@
     <script src="../public/javascript/chat.js"></script>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-3">
-          Sidebar
-        </div>
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Chat</a>
 
-        <div class="col-9">
-          <div class="chat">
-            <ul class="messages list-unstyled">
-            </ul>
-            <form class="messageForm" action="">
-              <div class="form-group">
-                <input type="text" class="form-control messageInput">
-              </div>
-              <button type="submit" class="btn btn-primary float-right">Send</button>
-            </form>
+      <span class="navbar-text">
+        Witaj, Maciej
+      </span>
+    </nav>
+
+    <!-- CHAT CONTAINER -->
+    <div class="container">
+      <div class="chat">
+        <!-- MESSAGES CONTAINER -->
+        <ul class="messages list-unstyled">
+        </ul>
+        <!-- MESSAGES CONTAINER -->
+
+        <!-- MESSAGE FORM -->
+        <form class="messageForm" action="">
+          <div class="form-group">
+            <input type="text" class="form-control messageInput">
           </div>
-        </div>
+          <button type="submit" class="btn btn-primary float-right">Send</button>
+        </form>
+        <!-- MESSAGE FORM -->
+
       </div>
-      <div class="clear"></div>
     </div>
+    <!-- CHAT CONTAINER -->
   </body>
 </html>
