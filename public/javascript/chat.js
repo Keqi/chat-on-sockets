@@ -12,7 +12,7 @@ $(function () {
   navbarUsername.text(`Welcome, ${username}`)
 
   // Send user data to socket
-  // socket.emit('setData', {username: username})
+  socket.emit('setData', {username: username})
 
   // Emits new message to socket
   $('.messageForm').submit(() => {
@@ -35,11 +35,19 @@ $(function () {
     chat.append(messageHtml)
   }));
 
-  // Modifies local username
+  // Receives information about user disconnect
+  socket.on('userDisconnect', ((username) => {
+    const messageHtml = `<li><p>${username} has disconnected.</p></li>`;
+    chat.append(messageHtml)
+  }));
+
+  // Modifies local username and changes data on socket
   $('form.changeUsername').submit(() => {
     username = usernameInput.val();
     usernameInput.val('');
     navbarUsername.text(`Welcome, ${username}`);
+
+    socket.emit('setData', { username: username } );
     return false;
   })
 })
