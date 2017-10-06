@@ -21,17 +21,7 @@ app.get('/chat', function(req, res){
   res.render('chat')
 });
 
-io.on('connection', function(socket){
-  console.log('a user connected');
-
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
-
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
+require('./socket')(app, io);
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
