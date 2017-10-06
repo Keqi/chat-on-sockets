@@ -6,6 +6,8 @@ const io = require('socket.io')(http);
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 
+const port = process.env.PORT || 8080;
+
 app.set('view engine', 'ejs');
 
 app.use(sassMiddleware({
@@ -23,6 +25,6 @@ app.get('/chat', function(req, res){
 
 require('./socket')(app, io);
 
-http.listen(3000, function(){
-  console.log('listening on *:3000');
+http.listen(port, function(){
+  console.log(`listening on port ${port}`);
 });
