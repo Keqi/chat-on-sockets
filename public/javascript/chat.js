@@ -11,6 +11,9 @@ $(function () {
   // Set initial value for navbar welcoming text
   navbarUsername.text(`Welcome, ${username}`)
 
+  // Send user data to socket
+  // socket.emit('setData', {username: username})
+
   // Emits new message to socket
   $('.messageForm').submit(() => {
     const message = {
