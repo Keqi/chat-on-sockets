@@ -5,6 +5,10 @@ $(function () {
   const chat = $('ul.messages')
   const navbarUsername = $('nav span.username');
 
+  function scrollToBottom() {
+    $("html, body").animate({ scrollTop: chat[0].scrollHeight }, 1000);
+  }
+
   // Generate unique username whe user enters chat view
   let username = `guest-${Math.floor(Math.random() * 100) + 1}`;
 
@@ -24,6 +28,8 @@ $(function () {
 
     socket.emit('message', message);
     messageInput.val('');
+
+    scrollToBottom();
     return false;
   })
 
