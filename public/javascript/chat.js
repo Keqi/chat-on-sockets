@@ -51,7 +51,7 @@ $(function () {
     const senderName = message.username;
     const text = message.text;
 
-    const messageHtml = `<li class="message"><b>${senderName}</b><p>${text}</p></li>`;
+    const messageHtml = `<li class="message"><b>${senderName}</b><i>(${moment().format('H:mm:ss')})</i><p>${text}</p></li>`;
     chat.append(messageHtml)
 
     if (message.username !== username) {
