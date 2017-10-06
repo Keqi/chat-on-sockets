@@ -6,13 +6,14 @@ $(function () {
   const navbarUsername = $('nav span.username');
 
   // Generate unique username whe user enters chat view
-  let username = `Guest-${Math.floor(Math.random() * 100) + 1}`;
+  let username = `guest-${Math.floor(Math.random() * 100) + 1}`;
 
   // Set initial value for navbar welcoming text
-  navbarUsername.text(`Welcome, ${username}`)
+  navbarUsername.text(`Welcome, ${username}`);
 
   // Send user data to socket
-  socket.emit('setData', {username: username})
+  socket.emit('setData', {username: username});
+  socket.emit('userConnect', username);
 
   // Emits new message to socket
   $('.messageForm').submit(() => {
@@ -31,23 +32,37 @@ $(function () {
     const senderName = message.username;
     const text = message.text;
 
-    const messageHtml = `<li><b>${senderName}</b><p>${text}</p></li>`;
+    const messageHtml = `<li class="message"><b>${senderName}</b><p>${text}</p></li>`;
+    chat.append(messageHtml)
+  }));
+
+  // Receives information about user connect
+  socket.on('userConnect', ((username) => {
+    const messageHtml = `<li class="warning"><p>${username} has connected.</p></li>`;
     chat.append(messageHtml)
   }));
 
   // Receives information about user disconnect
   socket.on('userDisconnect', ((username) => {
-    const messageHtml = `<li><p>${username} has disconnected.</p></li>`;
+    const messageHtml = `<li class="warning"><p>${username} has disconnected.</p></li>`;
+    chat.append(messageHtml)
+  }));
+
+  // Receives information nick changed by user
+  socket.on('changeUsername', ((data) => {
+    const messageHtml = `<li class="warning"><p>User ${data.old_username} changed nick name to: ${data.new_username}</p></li>`;
     chat.append(messageHtml)
   }));
 
   // Modifies local username and changes data on socket
   $('form.changeUsername').submit(() => {
+    const oldUsername = username;
     username = usernameInput.val();
     usernameInput.val('');
     navbarUsername.text(`Welcome, ${username}`);
 
     socket.emit('setData', { username: username } );
+    socket.emit('changeUsername', {old_username: oldUsername, new_username: username});
     return false;
   })
 })
