@@ -9,8 +9,15 @@ $(function () {
     $("html, body").animate({ scrollTop: chat[0].scrollHeight }, 1000);
   }
 
+  function newMessage() {
+    newMessagesCount += 1;
+    document.title = `New messages (${newMessagesCount})`;
+  }
+
   // Generate unique username whe user enters chat view
   let username = `guest-${Math.floor(Math.random() * 100) + 1}`;
+
+  let newMessagesCount = 0;
 
   // Set initial value for navbar welcoming text
   navbarUsername.text(`Welcome, ${username}`);
@@ -33,6 +40,12 @@ $(function () {
     return false;
   })
 
+  // Reset message counter when user moves mouse
+  $(window).mouseover(function(e) {
+		document.title = "Chat";
+		newMessagesCount = 0;
+	});
+
   // Receives message from socket and adds it to chat container
   socket.on('message', ((message) => {
     const senderName = message.username;
@@ -40,6 +53,10 @@ $(function () {
 
     const messageHtml = `<li class="message"><b>${senderName}</b><p>${text}</p></li>`;
     chat.append(messageHtml)
+
+    if (message.username !== username) {
+      newMessage()
+    }
   }));
 
   // Receives information about user connect
