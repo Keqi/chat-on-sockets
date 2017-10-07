@@ -1,9 +1,11 @@
 $(function () {
   const socket = io();
+
   const messageInput = $('.messageForm .messageInput');
   const usernameInput = $('form.changeUsername .usernameInput')
   const chat = $('ul.messages')
   const navbarUsername = $('nav span.username');
+  const usersList = $('ul.usersList');
 
   function scrollToBottom() {
     $("html, body").animate({ scrollTop: chat[0].scrollHeight }, 1000);
@@ -12,6 +14,14 @@ $(function () {
   function newMessage() {
     newMessagesCount += 1;
     document.title = `New messages (${newMessagesCount})`;
+  }
+
+  function updateUsersList(usernames) {
+    usersList.empty();
+    usernames.forEach((username) => {
+      const listItem = `<li>${username}</li>`
+      usersList.append(listItem);
+    })
   }
 
   // Generate unique username whe user enters chat view
@@ -62,7 +72,7 @@ $(function () {
   // Receives information about user connect
   socket.on('userConnect', ((username) => {
     const messageHtml = `<li class="warning"><p>${username} has connected.</p></li>`;
-    chat.append(messageHtml)
+    chat.append(messageHtml);
   }));
 
   // Receives information about user disconnect
@@ -76,6 +86,8 @@ $(function () {
     const messageHtml = `<li class="warning"><p>User ${data.old_username} changed nick name to: ${data.new_username}</p></li>`;
     chat.append(messageHtml)
   }));
+
+  socket.on('updateUsersList', ((usernames) => updateUsersList(usernames)));
 
   // Modifies local username and changes data on socket
   $('form.changeUsername').submit(() => {
