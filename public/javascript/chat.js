@@ -24,6 +24,13 @@ $(function () {
     })
   }
 
+  function formatMessage(msg) {
+		var formattedMessage = msg;
+		formattedMessage = formattedMessage.replace(/(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, "<a href=\"$1\" target=\"_blank\">$1</a>");
+
+		return formattedMessage;
+	}
+
   // Generate unique username whe user enters chat view
   let username = `guest-${Math.floor(Math.random() * 100) + 1}`;
 
@@ -40,7 +47,7 @@ $(function () {
   $('.messageForm').submit(() => {
     const message = {
       username: username,
-      text: messageInput.val(),
+      text: formatMessage(messageInput.val()),
     }
 
     socket.emit('message', message);
