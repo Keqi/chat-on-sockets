@@ -8,7 +8,7 @@ $(function () {
   const usersList = $('ul.usersList');
 
   function scrollToBottom() {
-    $("html, body").animate({ scrollTop: chat[0].scrollHeight }, 1000);
+    chat.animate({ scrollTop: chat[0].scrollHeight }, 1000);
   }
 
   function newMessage() {
@@ -73,18 +73,21 @@ $(function () {
   socket.on('userConnect', ((username) => {
     const messageHtml = `<li class="warning"><p>${username} has connected.</p></li>`;
     chat.append(messageHtml);
+    scrollToBottom()
   }));
 
   // Receives information about user disconnect
   socket.on('userDisconnect', ((username) => {
     const messageHtml = `<li class="warning"><p>${username} has disconnected.</p></li>`;
     chat.append(messageHtml)
+    scrollToBottom()
   }));
 
   // Receives information nick changed by user
   socket.on('changeUsername', ((data) => {
     const messageHtml = `<li class="warning"><p>User ${data.old_username} changed nick name to: ${data.new_username}</p></li>`;
     chat.append(messageHtml)
+    scrollToBottom()
   }));
 
   socket.on('updateUsersList', ((usernames) => updateUsersList(usernames)));
