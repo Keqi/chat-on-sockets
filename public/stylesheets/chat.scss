@@ -14,14 +14,21 @@ body {
     li.warning { color: red; }
 
     li {
-      p { margin-bottom: 4px; }
+      p {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      i.emoji {
+        font-style: normal;
+        margin-left: 5px;
+        font-size: 200%;
+      }
+
       i {
         font-size: 12px;
         margin-left: 10px;
       }
     }
   }
-}
-
-.messageForm {
 }

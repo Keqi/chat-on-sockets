@@ -7,6 +7,18 @@ $(function () {
   const navbarUsername = $('nav span.username');
   const usersList = $('ul.usersList');
 
+  const emojis = {
+    ":)": "&#x1F642",
+    ":(": "&#x1F641",
+    ":D": "&#x1F603",
+    ";)": "&#x1F609",
+    ":|": "&#x1F610",
+    ":P": "&#x1F61B",
+    ":/": "&#x1F615",
+    ":+1:": "&#x1F44D",
+    ":-1:": "&#x1F44E",
+  };
+
   function scrollToBottom() {
     chat.animate({ scrollTop: chat[0].scrollHeight }, 1000);
   }
@@ -26,7 +38,14 @@ $(function () {
 
   function formatMessage(msg) {
 		var formattedMessage = msg;
+
+    // Linkify all URLs
 		formattedMessage = formattedMessage.replace(/(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, "<a href=\"$1\" target=\"_blank\">$1</a>");
+
+    // Transform text into basic emojis
+    Object.keys(emojis).forEach((key) => {
+      formattedMessage = formattedMessage.split(key).join(`<i class="emoji">${emojis[key]}</i>`);
+    });
 
 		return formattedMessage;
 	}
@@ -68,17 +87,7 @@ $(function () {
     const senderName = message.username;
     const text = message.text;
 
-    /*
-      If last message was sent by same person do not render sender name and time of message and just stack messages
-    */
-    let messageHtml;
-    const lastMessageSender = chat.find('b').last().text();
-    if (lastMessageSender === senderName) {
-      messageHtml = `<li class="message"><p>${text}</p></li>`;
-    } else {
-      messageHtml = `<li class="message"><b>${senderName}</b><i>(${moment().format('H:mm')})</i><p>${text}</p></li>`
-    }
-
+    const messageHtml = `<li class="message"><b>${senderName}</b><i>(${moment().format('H:mm')})</i><p>${text}</p></li>`;
     chat.append(messageHtml)
 
     // Notify all chat users except sender about incoming message
