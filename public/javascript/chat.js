@@ -68,12 +68,21 @@ $(function () {
     const senderName = message.username;
     const text = message.text;
 
-    const messageHtml = `<li class="message"><b>${senderName}</b><i>(${moment().format('H:mm:ss')})</i><p>${text}</p></li>`;
+    /*
+      If last message was sent by same person do not render sender name and time of message and just stack messages
+    */
+    let messageHtml;
+    const lastMessageSender = chat.find('b').last().text();
+    if (lastMessageSender === senderName) {
+      messageHtml = `<li class="message"><p>${text}</p></li>`;
+    } else {
+      messageHtml = `<li class="message"><b>${senderName}</b><i>(${moment().format('H:mm')})</i><p>${text}</p></li>`
+    }
+
     chat.append(messageHtml)
 
-    if (message.username !== username) {
-      newMessage()
-    }
+    // Notify all chat users except sender about incoming message
+    if (senderName !== username) { newMessage() }
   }));
 
   // Receives information about user connect
