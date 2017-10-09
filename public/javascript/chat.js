@@ -42,9 +42,9 @@ $(function () {
 		formattedMessage = formattedMessage.replace(/(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, "<a href=\"$1\" target=\"_blank\">$1</a>");
 
     // Transform text into basic emojis
-    Object.keys(emojis).forEach((key) => {
-      formattedMessage = formattedMessage.split(key).join(`<i class="emoji">${emojis[key]}</i>`);
-    });
+    // Object.keys(emojis).forEach((key) => {
+    //   formattedMessage = formattedMessage.split(key).join(`<i class="emoji">${emojis[key]}</i>`);
+    // });
 
 		return formattedMessage;
 	}
