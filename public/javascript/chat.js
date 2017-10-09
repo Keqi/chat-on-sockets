@@ -71,7 +71,6 @@ $(function () {
     socket.emit('message', message);
     messageInput.val('');
 
-    scrollToBottom();
     return false;
   })
 
@@ -86,11 +85,14 @@ $(function () {
     const senderName = message.username;
     const text = message.text;
 
-    const messageHtml = `<li class="message"><b>${senderName}</b><i>(${moment().format('H:mm')})</i><p>${text}</p></li>`;
-    chat.append(messageHtml)
+    if(text.length !== 0) {
+      const messageHtml = `<li class="message"><b>${senderName}</b><i>(${moment().format('H:mm')})</i><p>${text}</p></li>`;
+      chat.append(messageHtml)
+      scrollToBottom();
 
-    // Notify all chat users except sender about incoming message
-    if (senderName !== username) { newMessage() }
+      // Notify all chat users except sender about incoming message
+      if (senderName !== username) { newMessage() }
+    }
   }));
 
   // Receives information about user connect
