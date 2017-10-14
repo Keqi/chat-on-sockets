@@ -1,5 +1,6 @@
 const _ = require('lodash')
 const users = {};
+const messages = [];
 
 function getUsernames() {
   return _.map(users, (data) => data.username);
@@ -14,8 +15,13 @@ module.exports = function(app, io){
 
     // Send information that user has connected
     socket.on('userConnect', function(username){
-      io.emit('userConnect', username);
+      socket.broadcast.emit('userConnect', username);
       io.emit('updateUsersList', getUsernames())
+
+      // Send last 10 messages to connected user.
+      if (messages.length > 0) {
+        io.to(socket.id).emit('initMessages', messages.slice(messages.length-10));
+      }
     });
 
     // Set user data
@@ -31,6 +37,7 @@ module.exports = function(app, io){
 
     // Receives message object and sends it to all users
     socket.on('message', function(msg){
+      messages.push(msg)
       io.emit('message', msg);
     });
 

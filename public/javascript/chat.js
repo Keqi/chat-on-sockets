@@ -25,11 +25,11 @@ $(function () {
   }
 
   function formatMessage(msg) {
-		var formattedMessage = msg;
+    var formattedMessage = msg;
     // Linkify all URLs
-		formattedMessage = formattedMessage.replace(/(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, "<a href=\"$1\" target=\"_blank\">$1</a>");
-		return formattedMessage;
-	}
+    formattedMessage = formattedMessage.replace(/(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, "<a href=\"$1\" target=\"_blank\">$1</a>");
+    return formattedMessage;
+  }
 
   // Generate unique username whe user enters chat view
   let username = `guest-${Math.floor(Math.random() * 100) + 1}`;
@@ -47,6 +47,7 @@ $(function () {
   $('.messageForm').submit(() => {
     const message = {
       username: username,
+      createdAt: moment().format('H:mm'),
       text: formatMessage(messageInput.val()),
     }
 
@@ -66,9 +67,10 @@ $(function () {
   socket.on('message', ((message) => {
     const senderName = message.username;
     const text = message.text;
+    const messageTime = message.createdAt;
 
     if(text.length !== 0) {
-      const messageHtml = `<li class="message"><b>${senderName}</b><i>(${moment().format('H:mm')})</i><p>${text}</p></li>`;
+      const messageHtml = `<li class="message"><b>${senderName}</b><i>(${messageTime})</i><p>${text}</p></li>`;
       chat.append(messageHtml)
       scrollToBottom();
 
@@ -99,6 +101,19 @@ $(function () {
   }));
 
   socket.on('updateUsersList', ((usernames) => updateUsersList(usernames)));
+
+  // Initialize chat component with previously sent messages
+  socket.on('initMessages', ((messages) => {
+    messages.forEach((msg) => {
+      const messageHtml = `<li class="message"><b>${msg.username}</b><i>(${msg.createdAt})</i><p>${msg.text}</p></li>`;
+
+      chat.append(messageHtml)
+      scrollToBottom();
+    });
+
+    // Append divider between new and old messages
+    chat.append('<hr></hr>')
+  }));
 
   // Modifies local username and changes data on socket
   $('form.changeUsername').submit(() => {

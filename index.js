@@ -11,10 +11,10 @@ const port = process.env.PORT || 8080;
 app.set('view engine', 'ejs');
 
 app.use(sassMiddleware({
-    src: path.join(__dirname, 'public'),
-    dest: path.join(__dirname, 'public'),
-    outputStyle: 'compressed',
-    prefix: '/public'
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  outputStyle: 'compressed',
+  prefix: '/public'
 }));
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
